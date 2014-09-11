@@ -1,0 +1,12 @@
+webimages:
+
+
+services:
+    nette.latteFactory: Latte\Engine
+    router: Nette\Application\Routers\RouteList
+    url: Nette\Http\UrlScript
+    - Nette\Http\Request(@url)
+
+
+parameters:
+    wwwDir: ''

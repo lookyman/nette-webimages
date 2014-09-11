@@ -2,13 +2,13 @@
 
 $router = $container->getService('router');
 
-$router[] = new DotBlue\WebImages\Route('images/<id>-<width>x<height>.jpg', [
-	'id' => [
-		DotBlue\WebImages\Route::FILTER_IN => function ($slug) {
+$router[] = new DotBlue\WebImages\Route('images/<id>-<width>x<height>.jpg', array(
+	'id' => array(
+		DotBlue\WebImages\Route::FILTER_IN => function($slug) {
 			// ...
 		},
-		DotBlue\WebImages\Route::FILTER_OUT => function ($id) {
+		DotBlue\WebImages\Route::FILTER_OUT => function($id) {
 			// ...
 		},
-	],
-], $container->getByType('DotBlue\WebImages\Generator'));
+	),
+), $container->getByType('DotBlue\WebImages\Generator'));
