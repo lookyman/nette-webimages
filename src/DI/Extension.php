@@ -102,9 +102,9 @@ class Extension extends CompilerExtension
 
 			$builder->addDefinition($this->prefix('route.' . $i))
 				->setClass('DotBlue\WebImages\Application\Route', array(
+					$this->prefix('@generator'),
 					$mask,
 					$defaults,
-					$this->prefix('@generator'),
 				))
 				->setAutowired(FALSE);
 

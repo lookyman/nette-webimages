@@ -21,17 +21,18 @@ class Route extends BaseRoute
 
 
 	/**
+	 * @param \DotBlue\WebImages\Generator
 	 * @param string
 	 * @param array
-	 * @param \DotBlue\WebImages\Generator
+	 * @param int
 	 */
-	public function __construct($mask, array $defaults, Generator $generator)
+	public function __construct(Generator $generator, $mask, array $metadata = array(), $flags = 0)
 	{
-		$this->defaults = array_replace($this->defaults, $defaults);
-		$defaults['presenter'] = 'Nette:Micro';
+		$this->defaults = array_replace($this->defaults, $metadata);
+		$metadata['presenter'] = 'Nette:Micro';
 		$me = $this;
 
-		$defaults[NULL][self::FILTER_OUT] = function($params) use ($me, $generator) {
+		$metadata[NULL][self::FILTER_OUT] = function($params) use ($me, $generator) {
 			$width = $me->acquireArgument('width', $params);
 			$height = $me->acquireArgument('height', $params);
 			$flags = $me->acquireArgument('flags', $params);
@@ -43,7 +44,7 @@ class Route extends BaseRoute
 			return $params;
 		};
 
-		$defaults['callback'] = function($presenter) use ($me, $generator) {
+		$metadata['callback'] = function($presenter) use ($me, $generator) {
 			$params = $presenter->getRequest()->getParameters();
 
 			$image = NULL;
@@ -59,7 +60,7 @@ class Route extends BaseRoute
 			return new Response($image);
 		};
 
-		parent::__construct($mask, $defaults);
+		parent::__construct($mask, $metadata, $flags);
 	}
 
 
