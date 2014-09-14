@@ -40,14 +40,14 @@ class Extension extends CompilerExtension
 		$validator = $builder->addDefinition($this->prefix('validator'))
 			->setClass('DotBlue\WebImages\Validator');
 
-		Validators::assertField($config, 'rules', 'array', 'option webimages.rules');
+		Validators::assertField($config, 'rules', 'array', 'option ' . $this->name . '.rules');
 
 		foreach ($config['rules'] as $name => $rule) {
-			Validators::assert($rule, 'array', 'option webimages.rules.' . $name);
+			Validators::assert($rule, 'array', 'option ' . $this->name . '.rules.' . $name);
 			$this->validateConfig($this->ruleDefaults, $rule, $this->prefix('rules.' . $name));
-			Validators::assertField($rule, 'width', 'int', 'option webimages.rules.' . $name . '.width');
-			Validators::assertField($rule, 'height', 'int', 'option webimages.rules.' . $name . '.height');
-			!isset($rule['flags']) || Validators::assertField($rule, 'flags', 'int', 'option webimages.rules.' . $name . '.flags');
+			Validators::assertField($rule, 'width', 'int', 'option ' . $this->name . '.rules.' . $name . '.width');
+			Validators::assertField($rule, 'height', 'int', 'option ' . $this->name . '.rules.' . $name . '.height');
+			!isset($rule['flags']) || Validators::assertField($rule, 'flags', 'int', 'option ' . $this->name . '.rules.' . $name . '.flags');
 
 			$builder->addDefinition($this->prefix('rule.' . $name))
 				->setClass('DotBlue\WebImages\Rule', array(
@@ -72,10 +72,10 @@ class Extension extends CompilerExtension
 
 		$generator = $builder->getDefinition($this->prefix('generator'));
 
-		Validators::assertField($config, 'providers', 'array', 'option webimages.providers');
+		Validators::assertField($config, 'providers', 'array', 'option ' . $this->name . '.providers');
 
 		foreach ($config['providers'] as $name => $provider) {
-			Validators::assert($provider, 'string', 'option webimages.providers.0');
+			Validators::assert($provider, 'string', 'option ' . $this->name . '.providers.0');
 
 			$this->compiler->parseServices($builder, array(
 				'services' => array($this->prefix('provider.' . $name) => $provider),
@@ -85,7 +85,7 @@ class Extension extends CompilerExtension
 
 		$router = $builder->getDefinition('router');
 
-		Validators::assertField($config, 'routes', 'array', 'option webimages.routes');
+		Validators::assertField($config, 'routes', 'array', 'option ' . $this->name . '.routes');
 
 		$i = 0;
 		foreach (array_reverse($config['routes']) as $mask => $defaults) {
@@ -94,11 +94,11 @@ class Extension extends CompilerExtension
 				$defaults = array();
 			}
 
-			Validators::assert($mask, 'string', 'option webimages.routes.' . $i);
+			Validators::assert($mask, 'string', 'option ' . $this->name . '.routes.' . $i);
 			$this->validateConfig($this->ruleDefaults, $defaults, $this->prefix('routes.' . $i));
-			!isset($defaults['width']) || Validators::assertField($defaults, 'width', 'int', 'option webimages.routes.' . $i . '.width');
-			!isset($defaults['height']) || Validators::assertField($defaults, 'height', 'int', 'option webimages.routes.' . $i . '.height');
-			!isset($defaults['flags']) || Validators::assertField($defaults, 'flags', 'int', 'option webimages.routes.' . $i . '.flags');
+			!isset($defaults['width']) || Validators::assertField($defaults, 'width', 'int', 'option ' . $this->name . '.routes.' . $i . '.width');
+			!isset($defaults['height']) || Validators::assertField($defaults, 'height', 'int', 'option ' . $this->name . '.routes.' . $i . '.height');
+			!isset($defaults['flags']) || Validators::assertField($defaults, 'flags', 'int', 'option ' . $this->name . '.routes.' . $i . '.flags');
 
 			$builder->addDefinition($this->prefix('route.' . $i))
 				->setClass('DotBlue\WebImages\Application\Route', array(
