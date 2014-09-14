@@ -43,7 +43,7 @@ class Extension extends CompilerExtension
 		Validators::assertField($config, 'rules', 'array');
 
 		foreach ($config['rules'] as $name => $rule) {
-			Validators::is($rule, 'array');
+			Validators::assert($rule, 'array');
 			$this->validateConfig($this->ruleDefaults, $rule, $this->prefix('rules.' . $name));
 			Validators::assertField($rule, 'width', 'int');
 			Validators::assertField($rule, 'height', 'int');
@@ -75,7 +75,7 @@ class Extension extends CompilerExtension
 		Validators::assertField($config, 'providers', 'array');
 
 		foreach ($config['providers'] as $name => $provider) {
-			Validators::is($provider, 'string');
+			Validators::assert($provider, 'string');
 
 			$this->compiler->parseServices($builder, array(
 				'services' => array($this->prefix('provider.' . $name) => $provider),
@@ -94,7 +94,7 @@ class Extension extends CompilerExtension
 				$defaults = array();
 			}
 
-			Validators::is($mask, 'string');
+			Validators::assert($mask, 'string');
 			$this->validateConfig($this->ruleDefaults, $defaults, $this->prefix('routes.' . $i));
 			!isset($defaults['width']) || Validators::assertField($defaults, 'width', 'int');
 			!isset($defaults['height']) || Validators::assertField($defaults, 'height', 'int');

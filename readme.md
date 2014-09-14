@@ -17,7 +17,7 @@ $ composer require dotblue/nette-webimages@~1.0
 2) Register as Configurator's extension:
 ```yml
 extensions:
-	webimages: DotBlue\WebImages\Extension
+	webimages: DotBlue\WebImages\DI\Extension
 ```
 
 ## Concept
