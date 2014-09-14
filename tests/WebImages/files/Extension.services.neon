@@ -11,12 +11,5 @@ webimages:
             flags: 3
 
 
-services:
-    nette.latteFactory: Latte\Engine
-    router: Nette\Application\Routers\RouteList
-    url: Nette\Http\UrlScript
-    - Nette\Http\Request(@url)
-
-
-parameters:
-    wwwDir: ''
+includes:
+    - Config.common.neon

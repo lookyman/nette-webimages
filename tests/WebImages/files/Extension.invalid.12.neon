@@ -1,2 +1,6 @@
+webimages:
+    routes: TRUE
+
+
 includes:
     - Config.common.neon

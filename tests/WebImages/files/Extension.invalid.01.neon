@@ -1,2 +1,6 @@
+webimages:
+    extra: TRUE
+
+
 includes:
     - Config.common.neon

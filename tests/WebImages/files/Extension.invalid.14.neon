@@ -1,0 +1,7 @@
+webimages:
+    routes:
+        '': [ extra: TRUE ]
+
+
+includes:
+    - Config.common.neon

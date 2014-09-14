@@ -1,0 +1,7 @@
+webimages:
+    routes:
+        '': [ height: TRUE ]
+
+
+includes:
+    - Config.common.neon

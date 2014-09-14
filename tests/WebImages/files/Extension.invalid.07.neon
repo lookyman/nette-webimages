@@ -1,0 +1,7 @@
+webimages:
+    rules:
+        - [ width: 1 ]
+
+
+includes:
+    - Config.common.neon

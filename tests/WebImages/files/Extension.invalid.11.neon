@@ -1,0 +1,7 @@
+webimages:
+    providers:
+        - TRUE
+
+
+includes:
+    - Config.common.neon

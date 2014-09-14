@@ -1,0 +1,7 @@
+webimages:
+    routes:
+        '': [ flags: TRUE ]
+
+
+includes:
+    - Config.common.neon
