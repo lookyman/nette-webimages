@@ -13,7 +13,12 @@ require __DIR__ . '/../bootstrap.php';
 Assert::exception(function() {
 	$compiler = new Nette\DI\Compiler;
 	$compiler->addExtension('webimages', new DotBlue\WebImages\DI\Extension);
-	createContainer($compiler, __DIR__ . '/files/Extension.invalid.01.neon');
+	createContainer($compiler, "
+webimages:
+    extra: TRUE
+includes:
+    - 'files/Config.common.neon'
+");
 }, 'Nette\InvalidStateException', "Unknown configuration option webimages.extra.");
 
 Assert::exception(function() {

@@ -39,12 +39,32 @@ class Notes
 }
 
 
-function createContainer(Nette\DI\Compiler $compiler, $file)
+/*function createContainer(Nette\DI\Compiler $compiler, $file)
 {
 	$class = 'Container' . md5(lcg_value());
 	$loader = new Nette\DI\Config\Loader;
 	$config = $loader->load($file);
 	$code = $compiler->compile((array)$config, $class, 'Nette\DI\Container');
+
+	file_put_contents(TEMP_DIR . '/code.php', "<?php\n\n$code");
+	require TEMP_DIR . '/code.php';
+	return new $class;
+}*/
+function createContainer($source, $config = NULL)
+{
+	$class = 'Container' . md5(lcg_value());
+	if ($source instanceof Nette\DI\ContainerBuilder) {
+		$code = implode('', $source->generateClasses($class));
+
+	} elseif ($source instanceof Nette\DI\Compiler) {
+		if (is_string($config)) {
+			$loader = new Nette\DI\Config\Loader;
+			$config = $loader->load(is_file($config) ? $config : Tester\FileMock::create($config, 'neon'));
+		}
+		$code = $source->compile((array) $config, $class, 'Nette\DI\Container');
+	} else {
+		return;
+	}
 
 	file_put_contents(TEMP_DIR . '/code.php', "<?php\n\n$code");
 	require TEMP_DIR . '/code.php';
