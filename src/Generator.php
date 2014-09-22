@@ -6,12 +6,13 @@
 
 namespace DotBlue\WebImages;
 
+use Nette;
 use Nette\Application;
 use Nette\Http;
 use Nette\Utils\Image;
 
 
-class Generator
+class Generator extends Nette\Object
 {
 
 	/** @var string */
@@ -70,6 +71,7 @@ class Generator
 			throw new Application\BadRequestException;
 		}
 
+		$image = NULL;
 		foreach ($this->providers as $provider) {
 			$image = $provider->getImage($id, $width, $height, $algorithm);
 			if ($image) {
