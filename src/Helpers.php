@@ -5,7 +5,7 @@ namespace DotBlue\WebImages;
 use Nette\Application\IRouter;
 use Nette\Application\Routers\Route;
 use Nette\Application\Routers\RouteList;
-
+use Nette\Utils\Image;
 
 class Helpers
 {
@@ -56,6 +56,9 @@ class Helpers
 		}
 		if (!isset($arguments['height'])) {
 			$arguments['height'] = 0;
+		}
+		if (!isset($arguments['flags'])) {
+			$arguments['flags'] = Image::FIT;
 		}
 
 		return $arguments;

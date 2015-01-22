@@ -13,24 +13,28 @@ require __DIR__ . '/../bootstrap.php';
 Assert::same(array(
 	'width' => 0,
 	'height' => 0,
+	'flags' => 0,
 ), DotBlue\WebImages\Helpers::prepareArguments(array()));
 
 Assert::same(array(
 	'id' => 1,
 	'width' => 0,
 	'height' => 0,
+	'flags' => 0,
 ), DotBlue\WebImages\Helpers::prepareArguments(array(1)));
 
 Assert::same(array(
 	'id' => 1,
 	'width' => 2,
 	'height' => 0,
+	'flags' => 0,
 ), DotBlue\WebImages\Helpers::prepareArguments(array(1, 2)));
 
 Assert::same(array(
 	'id' => 1,
 	'width' => 2,
 	'height' => 3,
+	'flags' => 0,
 ), DotBlue\WebImages\Helpers::prepareArguments(array(1, 2, 3)));
 
 Assert::same(array(
@@ -45,4 +49,5 @@ Assert::same(array(
 	'id' => 1,
 	'width' => 0,
 	'height' => 0,
+	'flags' => 0,
 ), DotBlue\WebImages\Helpers::prepareArguments(array(2, 'id' => 1)));
