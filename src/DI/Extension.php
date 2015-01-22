@@ -18,7 +18,6 @@ class Extension extends CompilerExtension
 		'routes' => array(),
 		'rules' => array(),
 		'providers' => array(),
-		'wwwDir' => '%wwwDir%',
 	);
 
 
@@ -61,7 +60,7 @@ class Extension extends CompilerExtension
 		}
 
 		$builder->addDefinition($this->prefix('generator'))
-			->setClass('DotBlue\WebImages\Generator', array($config['wwwDir']));
+			->setClass('DotBlue\WebImages\Generator');
 	}
 
 

@@ -14,5 +14,3 @@ services:
     nette.latteFactory: Latte\Engine
     - Nette\Http\UrlScript
     - Nette\Http\Request
-parameters:
-    wwwDir: ''

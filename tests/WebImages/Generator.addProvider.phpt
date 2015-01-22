@@ -18,7 +18,7 @@ class MockProvider implements DotBlue\WebImages\IProvider
 
 $httpRequest = new Nette\Http\Request(new Nette\Http\UrlScript);
 $validator = new DotBlue\WebImages\Validator;
-$generator = new DotBlue\WebImages\Generator(TEMP_DIR, $httpRequest, $validator);
+$generator = new DotBlue\WebImages\Generator($httpRequest, $validator);
 
 Assert::type('DotBlue\WebImages\Generator', $generator->addProvider($p1 = new MockProvider));
 

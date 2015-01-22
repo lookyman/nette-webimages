@@ -19,10 +19,6 @@ use Nette\Utils\Image;
 class Generator extends Nette\Object
 {
 
-	/** @var string */
-	protected $wwwDir;
-
-
 	/** @var \Nette\Http\IRequest */
 	protected $httpRequest;
 
@@ -36,13 +32,11 @@ class Generator extends Nette\Object
 
 
 	/**
-	 * @param string
 	 * @param \Nette\Http\IRequest
 	 * @param \DotBlue\WebImages\Validator
 	 */
-	public function __construct($wwwDir, IRequest $httpRequest, Validator $validator)
+	public function __construct(IRequest $httpRequest, Validator $validator)
 	{
-		$this->wwwDir = $wwwDir;
 		$this->httpRequest = $httpRequest;
 		$this->validator = $validator;
 	}
@@ -82,19 +76,6 @@ class Generator extends Nette\Object
 
 		if (!$image instanceof Image) {
 			throw new \Exception("Image not found.");
-		}
-
-		$destination = rtrim($this->wwwDir, '/') . '/' . ltrim($this->httpRequest->getUrl()->getPath(), '/');
-
-		$dirname = dirname($destination);
-		if (!is_dir($dirname)) {
-			if (!@mkdir($dirname, 0777, TRUE)) {
-				throw new \Exception("Cannot create image directory.");
-			}
-		}
-
-		if (!$image->save($destination)) {
-			throw new \Exception("Cannot save image.");
 		}
 
 		return $image;

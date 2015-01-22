@@ -27,7 +27,7 @@ $httpRequest = $requestFactory->createHttpRequest();
 $validator = new DotBlue\WebImages\Validator;
 $validator->addRule(new DotBlue\WebImages\Rule(1, 2));
 
-$generator = new DotBlue\WebImages\Generator(TEMP_DIR, $httpRequest, $validator);
+$generator = new DotBlue\WebImages\Generator($httpRequest, $validator);
 
 Assert::exception(function() use ($generator) {
 	$generator->generateImage('test.jpg', 3, 3);
@@ -42,5 +42,3 @@ $generator->addProvider(new MockProvider);
 $image = $generator->generateImage('test', 1, 2);
 
 Assert::type('Nette\Utils\Image', $image);
-
-Assert::true(file_exists(TEMP_DIR . '/images/test.jpg'));
