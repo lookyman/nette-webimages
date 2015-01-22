@@ -137,7 +137,7 @@ webimages:
 parameters:
 	wwwDir: ''
 ");
-}, 'Nette\Utils\AssertionException', "The option webimages.providers.0 expects to be string, boolean given.");
+}, 'Nette\Utils\AssertionException', "The option webimages.providers.0 expects to be string or object, boolean given.");
 
 Assert::exception(function() {
 	$compiler = new Nette\DI\Compiler;

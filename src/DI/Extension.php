@@ -75,7 +75,7 @@ class Extension extends CompilerExtension
 		Validators::assertField($config, 'providers', 'array', 'option ' . $this->name . '.providers');
 
 		foreach ($config['providers'] as $name => $provider) {
-			Validators::assert($provider, 'string', 'option ' . $this->name . '.providers.0');
+			Validators::assert($provider, 'string|object', 'option ' . $this->name . '.providers.0');
 
 			$this->compiler->parseServices($builder, array(
 				'services' => array($this->prefix('provider.' . $name) => $provider),
