@@ -43,6 +43,7 @@ class Generator extends Nette\Object
 
 
 	/**
+	 * @param \DotBlue\WebImages\IProvider
 	 * @return \DotBlue\WebImages\Generator
 	 */
 	public function addProvider(IProvider $provider)
