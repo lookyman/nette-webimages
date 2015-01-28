@@ -18,6 +18,7 @@ class Extension extends CompilerExtension
 		'routes' => array(),
 		'rules' => array(),
 		'providers' => array(),
+		'repositories' => array(),
 	);
 
 
@@ -61,6 +62,9 @@ class Extension extends CompilerExtension
 
 		$builder->addDefinition($this->prefix('generator'))
 			->setClass('DotBlue\WebImages\Generator');
+
+		$builder->addDefinition($this->prefix('uploader'))
+			->setClass('DotBlue\WebImages\Uploader');
 	}
 
 
@@ -113,6 +117,19 @@ class Extension extends CompilerExtension
 				));
 
 			$i++;
+		}
+
+		$uploader = $builder->getDefinition($this->prefix('uploader'));
+
+		Validators::assertField($config, 'repositories', 'array', 'option ' . $this->name . '.repositories');
+
+		foreach ($config['repositories'] as $name => $repository) {
+			Validators::assert($repository, 'string|object', 'option ' . $this->name . '.repositories.0');
+
+			$this->compiler->parseServices($builder, array(
+				'services' => array($this->prefix('repository.' . $name) => $repository),
+			));
+			$uploader->addSetup('addRepository', array($this->prefix('@repository.' . $name)));
 		}
 
 		$latte = $builder->hasDefinition('nette.latteFactory')
