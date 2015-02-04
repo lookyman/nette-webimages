@@ -13,7 +13,8 @@ interface IRepository
 	/**
 	 * @param \Nette\Utils\Image $image
 	 * @param null|string $name
-	 * @return string Name of saved file with image.
+	 * @param mixed $photoType
+	 * @return mixed ID of saved file with image.
 	 */
-	public function save(Nette\Utils\Image $image, $name = null);
+	public function save(Nette\Utils\Image $image, $name = null, $photoType = null);
 }

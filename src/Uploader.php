@@ -31,9 +31,10 @@ class Uploader extends Nette\Object
 	 *
 	 * @param \Nette\Http\FileUpload|string $source String may be URL of the image or image encoded in Base64.
 	 * @param null|string $name
+	 * @param mixed $photoType
 	 * @return array Paths of all destinations in format.
 	 */
-	public function uploadImage($source, $name = null)
+	public function uploadImage($source, $name = null, $photoType = null)
 	{
 		$image = $this->getImage($source);
 		if (!isset($image)) {
@@ -42,7 +43,7 @@ class Uploader extends Nette\Object
 
 		$paths = [];
 		foreach ($this->repositories as $repository) {
-			$paths[] = $repository->save($image, $name);
+			$paths[] = $repository->save($image, $name, $photoType);
 		}
 
 		return $paths;
