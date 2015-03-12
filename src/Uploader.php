@@ -96,8 +96,6 @@ class Uploader extends Nette\Object
 	 */
 	private function isUrl($source)
 	{
-		$pattern = '~\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]~i';
-
-		return preg_match($pattern, $source) === 1;
+		return Nette\Utils\Validators::isUrl($source);
 	}
 }
