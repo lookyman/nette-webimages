@@ -143,7 +143,7 @@ class Extension extends CompilerExtension
 	 * Checks whether $config contains only $expected items.
 	 * @throws \Nette\InvalidStateException
 	 */
-	protected function validateConfig(array $expected, array $config = NULL, $name = NULL)
+	public function validateConfig(array $expected, array $config = NULL, $name = NULL)
 	{
 		if ($extra = array_diff_key($config !== NULL ? $config : $this->config, $expected)) {
 			$name = $name ?: $this->name;
