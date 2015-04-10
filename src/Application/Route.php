@@ -13,9 +13,11 @@ use DotBlue\WebImages\Generator;
 
 class Route extends BaseRoute
 {
+	const ID_PLACEHOLDER = '~placeholder~';
 
 	/** @var array */
 	protected $defaults = array(
+		'id' => self::ID_PLACEHOLDER,
 		'flags' => Image::JPEG
 	);
 
