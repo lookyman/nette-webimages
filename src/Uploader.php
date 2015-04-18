@@ -64,7 +64,7 @@ class Uploader extends Nette\Object
 			$image = Nette\Utils\Image::fromFile($source->getTemporaryFile());
 		}
 		elseif (is_string($source)) {
-			if ($this->isUrl($source)) {
+			if ($this->isUrl($source) || is_file($source)) {
 				$image = Nette\Utils\Image::fromFile($source);
 			}
 			elseif ($this->isBase64($source)) {
