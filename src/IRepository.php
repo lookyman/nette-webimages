@@ -11,10 +11,9 @@ use Nette;
 interface IRepository
 {
 	/**
-	 * @param \Nette\Utils\Image $image
+	 * @param string
 	 * @param null|string $name
-	 * @param mixed $photoType
 	 * @return mixed ID of saved file with image.
 	 */
-	public function save(Nette\Utils\Image $image, $name = null, $photoType = null);
+	public function save($source, $name = null);
 }

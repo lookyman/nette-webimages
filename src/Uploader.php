@@ -31,19 +31,20 @@ class Uploader extends Nette\Object
 	 *
 	 * @param \Nette\Http\FileUpload|string $source String may be URL of the image or image encoded in Base64.
 	 * @param null|string $name
-	 * @param mixed $photoType
 	 * @return array Paths of all destinations in format.
 	 */
-	public function uploadImage($source, $name = null, $photoType = null)
+	public function uploadImage($source, $name = null)
 	{
-		$image = $this->getImage($source);
-		if (!isset($image)) {
-			throw new \InvalidArgumentException('Type of source of the image is not supported.');
+		$sourcePath = $this->getSourcePath($source);
+
+		if (!isset($sourcePath)) {
+			$msg = sprintf('Type of source of the image is not supported. Given: %s', var_export($source, true));
+			throw new \InvalidArgumentException($msg);
 		}
 
 		$paths = [];
 		foreach ($this->repositories as $repository) {
-			$paths[] = $repository->save($image, $name, $photoType);
+			$paths[] = $repository->save($sourcePath, $name);
 		}
 
 		return $paths;
@@ -51,28 +52,23 @@ class Uploader extends Nette\Object
 
 
 	/**
-	 * Returns Image from source
+	 * Returns path to file source
 	 *
 	 * @param \Nette\Http\FileUpload|string $source
-	 * @return \Nette\Utils\Image|null
-	 * @throws \Nette\Utils\UnknownImageFileException
+	 * @return null|string
 	 */
-	private function getImage($source)
+	private function getSourcePath($source)
 	{
-		$image = null;
+		$sourcePath = null;
 		if ($source instanceof Nette\Http\FileUpload) {
-			$image = Nette\Utils\Image::fromFile($source->getTemporaryFile());
+
+			$sourcePath = $source->getTemporaryFile();
 		}
-		elseif (is_string($source)) {
-			if ($this->isUrl($source) || is_file($source)) {
-				$image = Nette\Utils\Image::fromFile($source);
-			}
-			elseif ($this->isBase64($source)) {
-				$image = Nette\Utils\Image::fromString($source);
-			}
+		elseif (is_string($source) && file_exists($source)) {
+			$sourcePath = realpath($source);
 		}
 
-		return $image;
+		return $sourcePath;
 	}
 
 
