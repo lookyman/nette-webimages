@@ -64,8 +64,8 @@ class Uploader extends Nette\Object
 
 			$sourcePath = $source->getTemporaryFile();
 		}
-		elseif (is_string($source) && file_exists($source)) {
-			$sourcePath = realpath($source);
+		elseif (is_string($source) && (Nette\Utils\Validators::isUrl($source) || file_exists($source))) {
+			$sourcePath = $source;
 		}
 
 		return $sourcePath;
