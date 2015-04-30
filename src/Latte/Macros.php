@@ -30,11 +30,15 @@ class Macros extends MacroSet
 
 	public function macroSrc(MacroNode $node, PhpWriter $writer)
 	{
-		$baseUrl = $writer->write('$baseUrl = trim($_presenter->context->parameters["images"]["baseUrl"], "/");');
-		$link = $writer->write('$link = ($baseUrl == "" ? "//" : "" ) . ":Nette:Micro:";');
-		$echo = $writer->write('echo %escape(%modify($baseUrl . $_presenter->link($link, DotBlue\WebImages\Helpers::prepareArguments(%node.array))))');
+		$code = [];
+		$code[] = $writer->write('$imgBaseUrl = rtrim($_presenter->context->parameters["images"]["baseUrl"], "/");');
+		$code[] = $writer->write('$destination = ($imgBaseUrl == "" ? "//" : "" ) . ":Nette:Micro:";');
+		$code[] = $writer->write('$link = $_presenter->link($destination, DotBlue\WebImages\Helpers::prepareArguments(%node.array));');
+		$code[] = $writer->write('$exp = explode($baseUrl, $link);');
+		$code[] = $writer->write('$relativeLink = "/" . ltrim(array_pop($exp), "/");');
+		$code[] = $writer->write('echo %escape(%modify($imgBaseUrl . $relativeLink));');
 
-		return $baseUrl . $link . $echo;
+		return implode('', $code);
 	}
 
 }
