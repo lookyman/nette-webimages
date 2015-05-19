@@ -32,12 +32,15 @@ class Macros extends MacroSet
 	{
 		$code = [];
 
+		// POKUD SE NECO POSERE, TENTO KUS KODU ZAKOMENTOVAT A ODKOMENTOVAT PUVODNI KTERY +- FUNGOVAL ASPON NA WEBU, NE V EMAILECH
 		$code[] = $writer->write('
+		$_presenter->logger->log("info", "MacroSrc - baseUrl: ", [$baseUrl]);
 		$imgBaseUrl = rtrim($_presenter->context->parameters["images"]["baseUrl"], "/");
 		$_presenter->logger->log("info", "MacroSrc - imgBaseUrl: ", [$imgBaseUrl]);
 		$arg = DotBlue\WebImages\Helpers::prepareArguments(%node.array);
 		$_presenter->logger->log("info", "MacroSrc - parameters: ", $arg);
 		$link = $_presenter->link(":Nette:Micro:", $arg);
+		$_presenter->logger->log("info", "MacroSrc - link: ", [$link]);
 		$url =  %escape(%modify($imgBaseUrl.$link));
 		$_presenter->logger->log("info", "MacroSrc - result url: ", [$url]);
 		echo $url;
