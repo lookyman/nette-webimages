@@ -38,6 +38,7 @@ class Helpers
 		foreach ($arguments as $key => $value) {
 			if ($key === 0 && !isset($arguments['id'])) {
 				$arguments['id'] = $value;
+				$arguments['prefixDir'] = self::getPrefix($value);
 				unset($arguments[$key]);
 			} elseif ($key === 1 && !isset($arguments['width'])) {
 				$arguments['width'] = $value;
@@ -62,6 +63,16 @@ class Helpers
 		}
 
 		return $arguments;
+	}
+
+
+	/**
+	 * @param string $name
+	 * @return string
+	 */
+	public static function getPrefix($name)
+	{
+		return substr($name, 0, 2);
 	}
 
 }
