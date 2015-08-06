@@ -43,16 +43,6 @@ class Macros extends MacroSet
 
 		$url =  %escape(%modify($imgBaseUrl.$link));
 
-		if ("OS400" != php_uname("s"))
-		{
-			$output = new \Symfony\Component\Console\Output\ConsoleOutput();
-			$output->writeln("MacroSrc - baseUrl: ".$baseUrl);
-			$output->writeln("MacroSrc - imgBaseUrl: ".$imgBaseUrl);
-			$output->writeln($arg);
-			$output->writeln("MacroSrc - link: ".$link);
-			$output->writeln("MacroSrc - result url: ".$url);
-		}
-
 		echo $url;
 		');
 
