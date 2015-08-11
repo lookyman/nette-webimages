@@ -37,7 +37,7 @@ class Helpers
 	{
 		foreach ($arguments as $key => $value) {
 			if ($key === 0 && !isset($arguments['id'])) {
-				$arguments['id'] = $value;
+				$arguments['id'] = $value ?: null;
 				$arguments['prefixDir'] = self::getPrefix($value);
 				unset($arguments[$key]);
 			} elseif ($key === 1 && !isset($arguments['width'])) {
