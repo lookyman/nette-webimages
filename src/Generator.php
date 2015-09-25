@@ -82,4 +82,30 @@ class Generator extends Nette\Object
 		return $image;
 	}
 
+
+	/**
+	 * Returns link to image
+	 *
+	 * @param \Nette\Application\IPresenter $_presenter Presenter is required for evaluate the code.
+	 * @param string $imageName
+	 * @param null|int $width
+	 * @param null|int $height
+	 * @param null|int $flags
+	 * @return string
+	 */
+	public static function link(Nette\Application\IPresenter $_presenter, $imageName, $width = null, $height = null, $flags = null)
+	{
+		$parametersCode = sprintf('["%s", %s, %s, %s]', $imageName, $width ?: 'null', $height ?: 'null', $flags ?: 'null');
+
+		$code = Latte\Macros::getCode($parametersCode);
+
+		// in this method must be result returned
+		$code[] = 'return $link;';
+
+		// code for macro is as string for eval, also here must be eval
+		return eval(implode('', $code));
+	}
+
+
+
 }

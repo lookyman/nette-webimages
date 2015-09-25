@@ -10,6 +10,7 @@ use Latte\Macros\MacroSet;
 use Latte\Compiler;
 use Latte\MacroNode;
 use Latte\PhpWriter;
+use Nette\Application\IPresenter;
 
 
 class Macros extends MacroSet
@@ -30,16 +31,32 @@ class Macros extends MacroSet
 
 	public function macroSrc(MacroNode $node, PhpWriter $writer)
 	{
-		$code = [];
+		$code = $this->getCode('%node.array');
 
-		$code[] = $writer->write('$imgBaseUrl = rtrim($_presenter->context->parameters["images"]["baseUrl"], "/");');
-		$code[] = $writer->write('$destination = (empty($imgBaseUrl) ? "//" : "" ) . ":Nette:Micro:";');
-		$code[] = $writer->write('$link = $_presenter->link($destination, DotBlue\WebImages\Helpers::prepareArguments(%node.array));');
-		$code[] = $writer->write('$stripPos = substr($link, 0, 4) === "http" ? strpos($link, "/", 10) : 0;');
-		$code[] = $writer->write('$link = $imgBaseUrl . substr($link, $stripPos);');
+		// in macro must go result on output
 		$code[] = $writer->write('echo %escape(%modify($link));');
 
 		return implode('', $code);
+	}
+
+
+	/**
+	 * Returns PHP code for generate link to image
+	 *
+	 * @param string $parametersCode PHP code with parameters for destination for Presenter::link()
+	 * @return array
+	 */
+	public static function getCode($parametersCode)
+	{
+		$code = [];
+
+		$code[] = '$imgBaseUrl = rtrim($_presenter->context->parameters["images"]["baseUrl"], "/");';
+		$code[] = '$destination = (empty($imgBaseUrl) ? "//" : "" ) . ":Nette:Micro:";';
+		$code[] = '$link = $_presenter->link($destination, DotBlue\WebImages\Helpers::prepareArguments(' . $parametersCode . '));';
+		$code[] = '$stripPos = substr($link, 0, 4) === "http" ? strpos($link, "/", 10) : 0;';
+		$code[] = '$link = $imgBaseUrl . substr($link, $stripPos);';
+
+		return $code;
 	}
 
 }
