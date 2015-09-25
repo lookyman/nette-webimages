@@ -34,9 +34,9 @@ class Macros extends MacroSet
 		$code = $this->getCode('%node.array');
 
 		// in macro must go result on output
-		$code[] = $writer->write('echo %escape(%modify($link));');
+		$code[] = 'echo %escape(%modify($link));';
 
-		return implode('', $code);
+		return $writer->write(implode('', $code));
 	}
 
 
