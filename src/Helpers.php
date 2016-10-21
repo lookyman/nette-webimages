@@ -2,6 +2,7 @@
 
 namespace DotBlue\WebImages;
 
+use DotBlue\WebImages\Application\Route as DotBlueRoute;
 use Nette\Application\IRouter;
 use Nette\Application\Routers\Route;
 use Nette\Application\Routers\RouteList;
@@ -37,8 +38,8 @@ class Helpers
 	{
 		foreach ($arguments as $key => $value) {
 			if ($key === 0 && !isset($arguments['id'])) {
-				$arguments['id'] = $value ?: null;
-				$arguments['prefixDir'] = self::getPrefix($value);
+				$arguments['id'] = $value ?: DotBlueRoute::ID_PLACEHOLDER;
+				$arguments['prefixDir'] = self::getPrefix($arguments['id']);
 				unset($arguments[$key]);
 			} elseif ($key === 1 && !isset($arguments['width'])) {
 				$arguments['width'] = $value;
