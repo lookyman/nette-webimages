@@ -50,6 +50,8 @@ class Route extends BaseRoute
 			$params = $presenter->getRequest()->getParameters();
 
 			$image = NULL;
+			$id = null;
+
 			try {
 				$id = $me->acquireArgument('id', $params);
 				$width = $me->acquireArgument('width', $params);
@@ -59,7 +61,18 @@ class Route extends BaseRoute
 				$image = $generator->generateImage($id, $width, $height, $flags);
 			} catch (\Exception $e) {}
 
-			return new Response($image);
+			$type = Image::JPEG;
+			if ($id !== null) {
+				$type = array_search(
+					strtolower(pathinfo($me->acquireArgument('id', $params), PATHINFO_EXTENSION)), [
+						Image::JPEG => 'jpeg',
+						Image::PNG => 'png',
+						Image::GIF => 'gif'
+					]
+				);
+			}
+
+			return new Response($image, $type);
 		};
 
 		parent::__construct($mask, $metadata, $flags);
